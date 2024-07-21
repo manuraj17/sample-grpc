@@ -5,7 +5,7 @@ import (
 	"context"
 	"log"
 	"net"
-	helloworld "sgrpc/proto"
+	helloworld "sgrpc/simple/proto"
 
 	"google.golang.org/grpc"
 )
@@ -21,6 +21,7 @@ type server struct {
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
+	log.Printf("Received: %v\n", in.GetName())
 	return &helloworld.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
@@ -31,6 +32,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	helloworld.RegisterGreeterServer(s, &server{})
+	log.Printf("server starting at %v\n", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

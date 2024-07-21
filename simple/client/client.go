@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 	"os"
-	helloworld "sgrpc/proto"
+	helloworld "sgrpc/simple/proto"
 	"time"
 
 	"google.golang.org/grpc"
@@ -12,7 +12,10 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
+	address = "localhost:50051"
+	// address     = "[::1]:50051"
+
+	// address     = "127.0.0.1:50051"
 	defaultName = "world"
 )
 
